@@ -1,0 +1,3 @@
+#!/bin/bash
+update-rc.d hostapd enable
+update-rc.d isc-dhcp-server enable

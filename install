@@ -2,7 +2,7 @@
 /show/description "Install hostapd"
 /system/install hostapd
 /system/autoBackup /etc/hostapd/hostapd.conf
-/system/listecho "Modify /etc/hostapd/hostapd.conf" $OK
+/show/listecho "Modify /etc/hostapd/hostapd.conf" $OK
 cat <<\EOF > /etc/hostapd/hostapd.conf &&
 interface=wlan0
 driver=rtl871xdrv
@@ -18,12 +18,13 @@ wpa_key_mgmt=WPA-PSK
 wpa_pairwise=TKIP
 rsn_pairwise=CCMP
 EOF
-/system/listecho "Modify /etc/hostapd/hostapd.conf"
+
+/show/listecho "Modify /etc/hostapd/hostapd.conf"
 cat <<\EOF > /etc/default/hostapd &&
 DAEMON_CONF="/etc/hostapd/hostapd.conf"
 EOF
 
-/system/listecho "Update hostapd with adafruit version"
+/show/listecho "Update hostapd with adafruit version"
 /system/downloadFile http://adafruit-download.s3.amazonaws.com/adafruit_hostapd_14128.zip /tmp/hostapd.zip
 unzip /tmp/hostapd.zip
 mv /usr/sbin/hostapd /usr/sbin/hostapd.ORIG

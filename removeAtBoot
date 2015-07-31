@@ -1,0 +1,3 @@
+#!/bin/bash
+update-rc.d hostapd disable
+update-rc.d isc-dhcp-server disable
