@@ -1,0 +1,32 @@
+#!/bin/bash
+/show/description "Install hostapd"
+/system/install hostapd
+/system/autoBackup /etc/hostapd/hostapd.conf
+/system/listecho "Modify /etc/hostapd/hostapd.conf" $OK
+cat <<\EOF > /etc/hostapd/hostapd.conf &&
+interface=wlan0
+driver=rtl871xdrv
+ssid=pi
+hw_mode=g
+channel=6
+macaddr_acl=0
+auth_algs=1
+ignore_broadcast_ssid=0
+wpa=2
+wpa_passphrase=raspberry
+wpa_key_mgmt=WPA-PSK
+wpa_pairwise=TKIP
+rsn_pairwise=CCMP
+EOF
+/system/listecho "Modify /etc/hostapd/hostapd.conf"
+cat <<\EOF > /etc/default/hostapd &&
+DAEMON_CONF="/etc/hostapd/hostapd.conf"
+EOF
+
+/system/listecho "Update hostapd with adafruit version"
+/system/downloadFile http://adafruit-download.s3.amazonaws.com/adafruit_hostapd_14128.zip /tmp/hostapd.zip
+unzip /tmp/hostapd.zip
+mv /usr/sbin/hostapd /usr/sbin/hostapd.ORIG
+mv hostapd /usr/sbin
+rm -vf /tmp/hostapd.zip
+chmod 755 /usr/sbin/hostapd
