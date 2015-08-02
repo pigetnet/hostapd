@@ -1,0 +1,8 @@
+#!/bin/bash
+
+if [ $# -eq 1 ];then
+	ssid=$1
+	/show/listecho "Change ssid to $ssid"
+	/string/replaceLine "/etc/hostapd/hostapd.conf" "ssid=" "ssid=$ssid" ""
+	service hostapd restart
+fi
