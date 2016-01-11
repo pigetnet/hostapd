@@ -1,5 +1,5 @@
 #!/bin/bash
 /system/install dnsmasq
-/system/autoBackup dnsmasq.conf
+/system/autoBackup /etc/dnsmasq.conf
 cp /do/hostapd/default/redirectdnsmasq.conf /etc/dnsmasq.conf
 
